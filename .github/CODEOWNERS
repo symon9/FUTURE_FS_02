@@ -1,0 +1,8 @@
+# This is a comment.
+# Lines are in the format: file-pattern @github-username-or-team
+
+# All files in the /server directory are owned by the backend team
+/server/ @symon9
+
+# All files in the /client directory are owned by the frontend team
+/client/ @symon9
