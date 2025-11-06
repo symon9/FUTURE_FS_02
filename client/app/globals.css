@@ -1,26 +1,80 @@
+/* --- TAILWIND v4 COMPLIANT GLOBALS --- */
+
+/* 1. Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap");
+
+/* 2. Import Tailwind core */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 3. Define theme variables */
+@theme {
+  --font-sans: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --color-brand-green: #2d6a4f;
+  --color-brand-amber: #ffb703;
+  --color-brand-teal: #023047;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* 4. Base layer styles */
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-gray-bg);
+    color: var(--color-slate-700);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-sans);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 5. Custom component utilities */
+@layer components {
+  .btn-primary {
+    background-color: var(--color-brand-green);
+    color: white;
+    font-weight: 600;
+    padding-block: 0.5rem;
+    padding-inline: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-brand-green) 85%, white);
+    transform: scale(1.05);
+  }
+
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-brand-amber);
+  }
+
+  /* --- Input Primary --- */
+  .input-primary {
+    box-shadow: var(--shadow-sm);
+    appearance: none;
+    border: 1px solid var(--color-slate-300);
+    border-radius: 0.5rem;
+    width: 100%;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    color: var(--color-slate-700);
+    line-height: 1.25rem;
+    transition: all 0.2s ease;
+  }
+
+  .input-primary:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: 0 0 0 3px var(--color-brand-amber);
+  }
 }
