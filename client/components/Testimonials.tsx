@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import AnimatedHeading from "./AnimatedHeading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,13 +52,11 @@ const Testimonials = () => {
   return (
     <section ref={sectionRef} className="bg-slate-50 py-24">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold text-brand-teal mb-4">
-          Loved by Our Community
-        </h2>
-        <p className="text-slate-500 max-w-2xl mx-auto text-lg mb-16">
-          Don&apos;t just take our word for it. Here&apos;s what people are
-          saying.
-        </p>
+        <AnimatedHeading
+          text="Loved by Our Community"
+          subtext="Don't just take our word for it. Here's what people are saying."
+          className="mb-16"
+        />
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div

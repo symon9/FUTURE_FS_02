@@ -12,7 +12,7 @@ import api from "@/lib/api";
 // Register ScrollTrigger plugin if it's not already registered globally
 gsap.registerPlugin(ScrollTrigger);
 
-export const ProductCollection = () => {
+const ProductCollection = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const sectionRef = useRef(null);
@@ -75,3 +75,5 @@ export const ProductCollection = () => {
     </section>
   );
 };
+
+export default ProductCollection;

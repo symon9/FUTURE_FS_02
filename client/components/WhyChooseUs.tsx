@@ -4,10 +4,11 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ShieldCheck, Package, Tag } from "lucide-react";
+import AnimatedHeading from "./AnimatedHeading";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const WhyChooseUs = () => {
+const WhyChooseUs = () => {
   const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -53,12 +54,11 @@ export const WhyChooseUs = () => {
   return (
     <section ref={sectionRef} className="text-center">
       <div className="section-header">
-        <h2 className="text-4xl font-bold text-brand-teal mb-4">
-          Why Choose ShopVerse?
-        </h2>
-        <p className="text-slate-500 max-w-2xl mx-auto text-lg mb-12">
-          We provide a seamless and trustworthy shopping experience.
-        </p>
+        <AnimatedHeading
+          text="Why Choose ShopVerse?"
+          subtext="We provide a seamless and trustworthy shopping experience."
+          className="mb-12"
+        />
       </div>
       <div className="grid md:grid-cols-3 gap-8">
         {features.map((feature, i) => (
@@ -79,3 +79,5 @@ export const WhyChooseUs = () => {
     </section>
   );
 };
+
+export default WhyChooseUs;
