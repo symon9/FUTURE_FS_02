@@ -127,10 +127,14 @@ export default function CheckoutPage() {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label
+                htmlFor="name"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
                 Full Name
               </label>
               <input
+                id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -139,10 +143,14 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
                 Email Address
               </label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -151,10 +159,11 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">
                 Phone Number
               </label>
               <input
+                id="phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -163,10 +172,11 @@ export default function CheckoutPage() {
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">
                 Full Shipping Address
               </label>
               <textarea
+                id="address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="input-primary min-h-[100px]"

@@ -39,10 +39,14 @@ const ContactPage = () => {
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label
+                htmlFor="name"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
                 Full Name
               </label>
               <input
+                id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -51,10 +55,14 @@ const ContactPage = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
                 Email Address
               </label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -63,10 +71,14 @@ const ContactPage = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2">
+              <label
+                htmlFor="message"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
                 Message
               </label>
               <textarea
+                id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="input-primary min-h-[120px]"
