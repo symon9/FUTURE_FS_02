@@ -74,7 +74,7 @@ const Testimonials = () => {
               </p>
               <div className="flex items-center">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                  {/* Note: You will need to add these images to your /public/images folder */}
+                  {/* //TODO: Note: You will need to add these images to your /public/images folder */}
                   {/* <Image src={testimonial.image} alt={testimonial.name} layout="fill" objectFit="cover" /> */}
                 </div>
                 <div>
