@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className="flex flex-col min-h-screen">
@@ -26,9 +28,11 @@ export default function RootLayout({
           }}
         />
         <Header />
-        <main className="flex-grow container mx-auto px-4 py-8 md:py-12">
+
+        <main className="grow w-full max-w-7xl mx-auto px-4 py-8 md:py-12">
           {children}
         </main>
+
         <Footer />
       </body>
     </html>

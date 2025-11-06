@@ -1,7 +1,6 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
 
@@ -54,11 +53,11 @@ const Hero = () => {
               Discover an intuitive, seamless, and enjoyable marketplace
               experience. We empower buyers and vendors to connect effortlessly.
             </p>
-            <Link href="#products" className="hero-button inline-block">
+            <a href="#products" className="hero-button inline-block">
               <button className="btn-primary text-lg py-3 px-8">
                 Explore Collection
               </button>
-            </Link>
+            </a>
           </div>
           <div className="hero-image relative h-64 md:h-96">
             <Image
@@ -75,5 +74,4 @@ const Hero = () => {
     </section>
   );
 };
-
 export default Hero;

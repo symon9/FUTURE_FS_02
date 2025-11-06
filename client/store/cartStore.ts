@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-// Corrected Path:
 import { CartItem, Product } from "@/types";
+import toast from "react-hot-toast";
 
 interface CartState {
   items: CartItem[];
@@ -15,7 +15,8 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
-      addToCart: (product) =>
+      addToCart: (product) => {
+        toast.success(`${product.name} added to cart!`);
         set((state) => {
           const existingItem = state.items.find(
             (item) => item._id === product._id
@@ -30,7 +31,8 @@ export const useCartStore = create<CartState>()(
           } else {
             return { items: [...state.items, { ...product, quantity: 1 }] };
           }
-        }),
+        });
+      },
       removeFromCart: (productId) =>
         set((state) => ({
           items: state.items.filter((item) => item._id !== productId),
@@ -50,8 +52,6 @@ export const useCartStore = create<CartState>()(
         }),
       clearCart: () => set({ items: [] }),
     }),
-    {
-      name: "cart-storage",
-    }
+    { name: "cart-storage" }
   )
 );

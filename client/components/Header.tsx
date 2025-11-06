@@ -6,6 +6,29 @@ import { useCartStore } from "@/store/cartStore";
 import { useAuthStore } from "@/store/authStore";
 import gsap from "gsap";
 import { useLayoutEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+
+const NavLink = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      className={`text-sm font-medium transition-colors ${
+        isActive ? "text-brand-teal" : "text-slate-600 hover:text-brand-teal"
+      }`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const Header = () => {
   const headerRef = useRef(null);
@@ -25,7 +48,7 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm"
+      className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm lg:px-14"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
@@ -35,6 +58,14 @@ const Header = () => {
           >
             ShopVerse
           </Link>
+
+          {/* Centered Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/about">About Us</NavLink>
+            <NavLink href="/contact">Contact</NavLink>
+          </nav>
+
           <div className="flex items-center gap-6">
             <Link
               href="/cart"

@@ -34,7 +34,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
             ${product.price.toFixed(2)}
           </p>
           <button
-            onClick={() => addToCart(product)}
+            onClick={(e) => {
+              e.preventDefault(); // Prevent link navigation when clicking button
+              addToCart(product);
+            }}
             className="bg-brand-amber text-brand-teal p-2.5 rounded-full shadow-md hover:scale-110 transition-all duration-300"
             aria-label="Add to cart"
           >
