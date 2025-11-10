@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <h3 className="text-3xl font-extrabold mb-2">ShopVerse</h3>
+            <h3 className="text-3xl font-extrabold mb-2">Zenvy</h3>
             <p className="text-brand-amber font-medium">
               Your World of Smart Shopping
             </p>
@@ -99,7 +99,7 @@ const Footer = () => {
       <div className="bg-slate-900/50">
         <div className="container mx-auto px-4 py-6 text-center text-slate-400 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} ShopVerse.
+            &copy; {new Date().getFullYear()} Zenvy.
             All Rights Reserved.
           </p>
         </div>

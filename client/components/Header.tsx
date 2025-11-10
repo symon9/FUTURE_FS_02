@@ -99,7 +99,7 @@ const Header = () => {
               href="/"
               className="text-3xl font-extrabold text-brand-teal tracking-wide"
             >
-              ShopVerse
+              Zenvy
             </Link>
           </div>
 
@@ -203,7 +203,7 @@ const Header = () => {
                 onClick={closeMobileMenu}
                 className="text-3xl font-extrabold text-brand-teal tracking-wide drop-shadow-sm"
               >
-                ShopVerse
+                Zenvy
               </Link>
 
               <button
@@ -260,7 +260,7 @@ const Header = () => {
               )}
 
               <div className="pt-10 text-sm text-slate-400">
-                © {new Date().getFullYear()} ShopVerse. All rights reserved.
+                © {new Date().getFullYear()} Zenvy. All rights reserved.
               </div>
             </div>
           </div>

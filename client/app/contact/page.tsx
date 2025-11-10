@@ -105,19 +105,19 @@ const ContactPage = () => {
               <p className="text-slate-500">
                 General Inquiries:{" "}
                 <a
-                  href="mailto:hello@shopverse.com"
+                  href="mailto:hello@Zenvy.com"
                   className="hover:underline"
                 >
-                  hello@shopverse.com
+                  hello@Zenvy.com
                 </a>
               </p>
               <p className="text-slate-500">
                 Support:{" "}
                 <a
-                  href="mailto:support@shopverse.com"
+                  href="mailto:support@Zenvy.com"
                   className="hover:underline"
                 >
-                  support@shopverse.com
+                  support@Zenvy.com
                 </a>
               </p>
             </div>

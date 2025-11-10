@@ -13,7 +13,7 @@ const testimonials = [
   {
     name: "Sarah L.",
     role: "Happy Customer",
-    text: "ShopVerse is a game-changer! The interface is so clean and the entire process was incredibly smooth. I found exactly what I needed.",
+    text: "Zenvy is a game-changer! The interface is so clean and the entire process was incredibly smooth. I found exactly what I needed.",
     image: "/images/sarah.jpg",
   },
   {
@@ -25,7 +25,7 @@ const testimonials = [
   {
     name: "Emily R.",
     role: "Tech Enthusiast",
-    text: "The security and speed are top-notch. I love the modern feel and trust ShopVerse with my purchases. Finally, an e-commerce site that gets it right!",
+    text: "The security and speed are top-notch. I love the modern feel and trust Zenvy with my purchases. Finally, an e-commerce site that gets it right!",
     image: "/images/emily.jpg",
   },
 ];

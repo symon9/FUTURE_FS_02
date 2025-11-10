@@ -75,12 +75,12 @@ export default function LoginPage() {
         <div className="image-container relative hidden md:block md:w-1/2">
           <Image
             src="https://images.unsplash.com/photo-1579752329205-3e20e88835b3?q=80&w=1964&auto=format&fit=crop"
-            alt="Welcome to ShopVerse"
+            alt="Welcome to Zenvy"
             layout="fill"
             objectFit="cover"
           />
           <div className="absolute inset-0 bg-brand-teal bg-opacity-80 p-8 flex flex-col justify-end text-white">
-            <h1 className="text-4xl font-extrabold mb-2">ShopVerse</h1>
+            <h1 className="text-4xl font-extrabold mb-2">Zenvy</h1>
             <p className="text-lg font-medium text-brand-amber">
               Your World of Smart Shopping
             </p>
@@ -93,7 +93,7 @@ export default function LoginPage() {
             Welcome Back!
           </h2>
           <p className="text-slate-500 mb-8">
-            Sign in to continue to ShopVerse.
+            Sign in to continue to Zenvy.
           </p>
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (

@@ -76,12 +76,12 @@ export default function RegisterPage() {
         <div className="image-container relative hidden md:block md:w-1/2">
           <Image
             src="https://images.unsplash.com/photo-1758523669763-ca7959730044?q=80&w=1974&auto=format&fit=crop"
-            alt="Join ShopVerse"
+            alt="Join Zenvy"
             layout="fill"
             objectFit="cover"
           />
           <div className="absolute inset-0 bg-brand-green/40 bg-opacity-70 p-8 flex flex-col justify-end text-white">
-            <h1 className="text-4xl font-extrabold mb-2">Join ShopVerse</h1>
+            <h1 className="text-4xl font-extrabold mb-2">Join Zenvy</h1>
             <p className="text-lg font-medium text-white">
               Create an account to begin your smart shopping journey.
             </p>
@@ -93,9 +93,7 @@ export default function RegisterPage() {
           <h2 className="text-3xl font-bold mb-2 text-brand-teal">
             Create an Account
           </h2>
-          <p className="text-slate-500 mb-8">
-            Join the ShopVerse community today!
-          </p>
+          <p className="text-slate-500 mb-8">Join the Zenvy community today!</p>
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <p className="bg-red-100 text-red-700 p-3 rounded-lg text-sm">

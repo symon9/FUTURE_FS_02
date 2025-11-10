@@ -62,7 +62,7 @@ const AboutPage = () => {
       {/* Hero Section for About Page */}
       <section className="text-center">
         <h1 className="about-title text-5xl md:text-6xl font-extrabold text-brand-teal mb-4">
-          We are ShopVerse.
+          We are Zenvy.
         </h1>
         <p className="max-w-3xl mx-auto text-lg text-slate-500">
           A fresh take on e-commerce, built around smart, secure, and accessible
@@ -74,7 +74,7 @@ const AboutPage = () => {
       <div className="about-image relative h-96 max-w-5xl mx-auto rounded-2xl shadow-2xl overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2084&auto=format&fit=crop"
-          alt="ShopVerse Team"
+          alt="Zenvy Team"
           layout="fill"
           objectFit="cover"
         />

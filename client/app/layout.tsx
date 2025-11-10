@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "ShopVerse | Your World of Smart Shopping",
+  title: "Zenvy | Your World of Smart Shopping",
   description: "An intuitive, seamless, and enjoyable marketplace experience.",
 };
 

@@ -55,7 +55,6 @@ const ProductDetailsPage = () => {
             // Fallback for non-unsplash images
             setGalleryImages([currentProduct.image]);
           }
-          // --------------------------------------------------------
 
           const related = allProductsRes.data
             .filter(
@@ -67,7 +66,6 @@ const ProductDetailsPage = () => {
           setRelatedProducts(related);
         } catch (error) {
           console.error("Failed to fetch product data:", error);
-          // Optionally redirect to a 404 page or show an error state
         } finally {
           setLoading(false);
         }
@@ -187,7 +185,7 @@ const ProductDetailsPage = () => {
           <p className="text-3xl font-bold text-brand-teal mb-6">
             ${product.price.toFixed(2)}
           </p>
-          <p className="text-slate-600 leading-relaxed mb-8 flex-grow">
+          <p className="text-slate-600 leading-relaxed mb-8 grow">
             {product.description}
           </p>
           <div className="flex items-center gap-4 mb-6">

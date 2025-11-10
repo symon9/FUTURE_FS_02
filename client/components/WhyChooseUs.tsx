@@ -55,7 +55,7 @@ const WhyChooseUs = () => {
     <section ref={sectionRef} className="text-center">
       <div className="section-header">
         <AnimatedHeading
-          text="Why Choose ShopVerse?"
+          text="Why Choose Zenvy?"
           subtext="We provide a seamless and trustworthy shopping experience."
           className="mb-12"
         />
