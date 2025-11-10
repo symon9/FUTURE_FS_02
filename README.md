@@ -10,20 +10,7 @@
 
 Zenvy is a complete, modern, and full-stack e-commerce application built from the ground up. It features a sleek, animated user interface and a secure, robust backend, providing a seamless and enjoyable marketplace experience for both customers and administrators.
 
-<!--
-IMPORTANT: Create a high-quality GIF of your application in action and place it here.
-Record your screen showing:
-1. The homepage hero animation.
-2. Scrolling down to see the scroll-triggered animations.
-3. Filtering products.
-4. Adding an item to the cart (showing the toast).
-5. Navigating to the cart, then checkout.
-6. The final success animation.
-
-Save it as `demo.gif` in a root `/public` or `/docs` folder.
--->
-
-![Zenvy Demo GIF](https://i.ibb.co/GDgKysq/Zenvy-1.gif)
+![Zenvy Demo GIF](public/zenvy.gif)
 
 ---
 
