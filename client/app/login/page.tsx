@@ -74,12 +74,12 @@ export default function LoginPage() {
         {/* Left Side: Image and Branding */}
         <div className="image-container relative hidden md:block md:w-1/2">
           <Image
-            src="https://images.unsplash.com/photo-1579752329205-3e20e88835b3?q=80&w=1964&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1758273705998-05655eea4635?q=80&w=1964&auto=format&fit=crop"
             alt="Welcome to Zenvy"
             layout="fill"
             objectFit="cover"
           />
-          <div className="absolute inset-0 bg-brand-teal bg-opacity-80 p-8 flex flex-col justify-end text-white">
+          <div className="absolute inset-0 bg-brand-teal/40 bg-opacity-80 p-8 flex flex-col justify-end text-white">
             <h1 className="text-4xl font-extrabold mb-2">Zenvy</h1>
             <p className="text-lg font-medium text-brand-amber">
               Your World of Smart Shopping

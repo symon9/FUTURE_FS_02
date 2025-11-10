@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useLayoutEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { Flip } from "gsap/Flip";
@@ -11,16 +11,18 @@ import { Product } from "@/types";
 import api from "@/lib/api";
 import { FilterAndSearch } from "./FilterAndSearch";
 
-// 3. Register the Flip plugin
+// Register GSAP plugins
 gsap.registerPlugin(Flip, ScrollTrigger);
 
-const ProductCollection = () => {
+export const ProductCollection = () => {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const gridRef = useRef<HTMLDivElement>(null);
+  const isInitialLoad = useRef(true);
 
+  // Effect for fetching the initial product data from the API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -35,10 +37,10 @@ const ProductCollection = () => {
     fetchProducts();
   }, []);
 
-  // 4. Memoize categories and filtered products for performance
+  // Memoized calculations for categories and filtered products to optimize performance
   const categories = useMemo(() => {
     const cats = allProducts.map((p) => p.category);
-    return ["All", ...Array.from(new Set(cats))]; // Get unique categories
+    return ["All", ...Array.from(new Set(cats))];
   }, [allProducts]);
 
   const filteredProducts = useMemo(() => {
@@ -52,29 +54,59 @@ const ProductCollection = () => {
     });
   }, [allProducts, searchTerm, selectedCategory]);
 
-  // 5. GSAP Flip Animation for smooth filtering
-  useEffect(() => {
-    if (!gridRef.current || loading) return;
-
+  // Main animation effect that handles all states (Loading, Initial Reveal, Filtering)
+  useLayoutEffect(() => {
+    if (!gridRef.current) return;
     const grid = gridRef.current;
-    const state = Flip.getState(grid.children); // Get the initial state
-    const lastHeight = grid.offsetHeight;
 
-    // Let React re-render the DOM with the new filtered products.
-    // The grid's height will collapse instantly here.
+    // Phase 1: LOADING STATE
+    // While loading, measure the skeleton grid and set a min-height.
+    // This prevents the container from collapsing when we swap skeletons for real cards.
+    if (loading) {
+      const rect = grid.getBoundingClientRect();
+      if (rect.height > 0) {
+        gsap.set(grid, { minHeight: rect.height });
+      }
+      return; // Stop here if still loading
+    }
 
-    // 3. Force the grid back to its old height before animating.
-    // This pushes the Testimonials section back down, PREVENTING THE OVERLAP.
-    gsap.set(grid, { height: lastHeight });
-    // Let React re-render the filtered list
-    // (This happens between getState and the Flip.from call)
+    // Phase 2: INITIAL REVEAL (runs only once after loading is complete)
+    // We check a ref to see if this is the very first time we have data.
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false; // Set flag to false for all future re-renders
 
+      // A simple, clean entrance animation for the cards. No complex Flip needed here.
+      gsap.fromTo(
+        grid.children,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.05,
+          duration: 0.5,
+          ease: "power3.out",
+          // When done, remove the min-height and refresh ScrollTrigger
+          onComplete: () => {
+            gsap.set(grid, { minHeight: "auto" });
+            ScrollTrigger.refresh();
+          },
+        }
+      );
+      return; // Do not run the Flip logic on this first render
+    }
+
+    // Phase 3: FILTERING ANIMATION (runs on all subsequent filter/search changes)
+    // Capture the state of the container AND its children together.
+    const state = Flip.getState([grid, ...Array.from(grid.children)]);
+
+    // Animate from the captured state.
+    // GSAP will now automatically handle the height animation of the `grid`
+    // while simultaneously animating the children.
     Flip.from(state, {
       duration: 0.7,
-      scale: true,
       ease: "power3.inOut",
       stagger: 0.05,
-      absolute: true,
+      // Target only the children for scale/fade effects
       onEnter: (elements) =>
         gsap.fromTo(
           elements,
@@ -82,17 +114,14 @@ const ProductCollection = () => {
           { opacity: 1, scale: 1, duration: 0.5 }
         ),
       onLeave: (elements) =>
-        gsap.to(elements, { opacity: 0, scale: 0.8, duration: 0.5 }),
+        gsap.to(elements, { opacity: 0, scale: 0.8, absolute: true }), // `absolute` is needed for leaving items
+
+      // Refresh ScrollTrigger when the entire flip animation (including container resize) is done.
       onComplete: () => {
         ScrollTrigger.refresh();
       },
     });
-    gsap.to(grid, {
-      height: "auto", // Animate to the new, auto-calculated height
-      duration: 0.7,
-      ease: "power3.inOut",
-    });
-  }, [filteredProducts, loading]); // Run this effect whenever the filtered list changes
+  }, [loading, filteredProducts]); // This effect re-runs when loading state or filters change
 
   return (
     <section id="products">
@@ -103,9 +132,8 @@ const ProductCollection = () => {
         </p>
       </div>
 
-      {/* 6. Render the FilterAndSearch component */}
       <FilterAndSearch
-        categories={categories.slice(1)} // Pass categories without "All"
+        categories={categories.slice(1)}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}
@@ -119,7 +147,6 @@ const ProductCollection = () => {
         {loading
           ? Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)
           : filteredProducts.map((product) => (
-              // The key is crucial for Flip to track the elements
               <div key={product._id}>
                 <Link href={`/product/${product._id}`} className="block">
                   <ProductCard product={product} />
