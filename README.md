@@ -23,7 +23,7 @@ Record your screen showing:
 Save it as `demo.gif` in a root `/public` or `/docs` folder.
 -->
 
-![Zenvy Demo GIF](https://your-gif-url-here.com/demo.gif)
+![Zenvy Demo GIF](https://i.ibb.co/GDgKysq/Zenvy-1.gif)
 
 ---
 
@@ -101,8 +101,10 @@ This project is a monorepo containing two main packages:
 |   `-- README.md
 |
 |-- .gitignore       # Global ignore file
-|-- package.json     # (Optional: for root-level scripts)
-`-- README.md        # You are here
+|-- LICENSE
+|-- CODE_OF_CONDUCT.md
+|-- CONTRIBUTING.md
+|-- README.md        # You are here
 ```
 
 ---
