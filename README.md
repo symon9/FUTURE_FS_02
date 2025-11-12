@@ -10,7 +10,7 @@
 
 Zenvy is a complete, modern, and full-stack e-commerce application built from the ground up. It features a sleek, animated user interface and a secure, robust backend, providing a seamless and enjoyable marketplace experience for both customers and administrators.
 
-![Zenvy Demo GIF](public/zenvy.gif)
+![Zenvy Demo GIF](public/Zenvy.gif)
 
 ---
 

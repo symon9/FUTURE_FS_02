@@ -1,0 +1,49 @@
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  # Backend Server Service
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: zenvy-server
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      PAYSTACK_SECRET_KEY: ${PAYSTACK_SECRET_KEY} # Reads from .env file
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: 5000
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # Frontend Client Service
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        # Pass build-time arguments to the client Dockerfile
+        NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY}
+        NEXT_PUBLIC_API_URL: http://localhost:5000/api
+    container_name: zenvy-client
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+      NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  mongo-data:

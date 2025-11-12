@@ -4,47 +4,71 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import { useCartStore } from "@/store/cartStore";
-import { CheckoutForm } from "@/components/CheckoutForm";
+
+import dynamic from "next/dynamic";
+
+// --- 2. DYNAMICALLY IMPORT THE CheckoutForm COMPONENT ---
+const CheckoutForm = dynamic(
+  () => import("@/components/CheckoutForm").then((mod) => mod.CheckoutForm),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="bg-white shadow-xl rounded-xl p-8 space-y-6">
+            <div className="h-8 bg-slate-200 rounded w-3/4"></div>
+            <div className="space-y-4">
+              <div className="h-4 bg-slate-200 rounded w-1/4"></div>
+              <div className="h-10 bg-slate-200 rounded"></div>
+            </div>
+            <div className="space-y-4">
+              <div className="h-4 bg-slate-200 rounded w-1/4"></div>
+              <div className="h-10 bg-slate-200 rounded"></div>
+            </div>
+          </div>
+          <div className="bg-slate-50 p-8 rounded-xl h-fit">
+            <div className="h-8 bg-slate-200 rounded w-1/2 mb-6"></div>
+            <div className="h-16 bg-slate-200 rounded mb-4"></div>
+            <div className="h-16 bg-slate-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    ),
+  }
+);
 
 const CheckoutPage = () => {
   const router = useRouter();
-  const pathname = usePathname(); // Gets the current path, e.g., '/checkout'
+  const pathname = usePathname();
   const { user, token } = useAuthStore();
   const { items } = useCartStore();
 
-  // A state to prevent showing the form before authentication and cart checks are complete
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // This effect handles all the protection logic for the page.
-    // We add a small delay to ensure Zustand has hydrated its state from localStorage.
     const protectionTimer = setTimeout(() => {
-      // 1. Check for Authentication: If there's no token, the user is not logged in.
+      // 1. Check for Authentication
       if (!token) {
-        // Redirect to the login page, but also pass the current path as a 'redirect' query parameter.
-        // This tells the login page where to send the user back to after a successful login.
         const redirectUrl = `/login?redirect=${pathname}`;
         router.replace(redirectUrl);
-        return; // Stop further execution in this effect
+        return;
       }
 
-      // 2. Check for an Empty Cart: If the user is logged in but their cart is empty.
+      // 2. Check for an Empty Cart
       if (items.length === 0) {
-        // Redirect them to the homepage.
         router.replace("/");
         return;
       }
 
-      // 3. If all checks pass, we can safely show the page content.
+      // 3. If all checks pass, we can show the page content.
       setIsReady(true);
-    }, 200); // 200ms is a safe delay for state hydration.
+    }, 200);
 
-    // Cleanup function to clear the timer if the component unmounts.
     return () => clearTimeout(protectionTimer);
   }, [token, items, router, pathname]);
 
-  // While the checks are running, display a clear loading/authentication message.
-  // This prevents a "flash of unstyled content" or an empty page.
+  // While checks are running, display a clear loading message.
   if (!isReady) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] text-center">
@@ -69,8 +93,6 @@ const CheckoutPage = () => {
         </p>
       </div>
 
-      {/* The form is only rendered after all checks have passed.
-          The 'key' ensures the form resets if the user somehow changes. */}
       <CheckoutForm key={user?.id || "guest-checkout"} user={user} />
 
       {/* The success overlay remains here, controlled by GSAP from within the CheckoutForm component */}
