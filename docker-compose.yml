@@ -15,8 +15,6 @@ services:
       context: ./server
       dockerfile: Dockerfile
     container_name: zenvy-server
-    ports:
-      - "5000:5000"
     environment:
       MONGODB_URI: ${MONGODB_URI}
       PAYSTACK_SECRET_KEY: ${PAYSTACK_SECRET_KEY} # Reads from .env file
@@ -34,14 +32,27 @@ services:
       args:
         # Pass build-time arguments to the client Dockerfile
         NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY}
-        NEXT_PUBLIC_API_URL: http://localhost:5000/api
+        NEXT_PUBLIC_API_URL: /api
     container_name: zenvy-client
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:5000/api
+      NEXT_PUBLIC_API_URL: /api
       NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY}
-    ports:
-      - "3000:3000"
     depends_on:
+      - server
+    restart: unless-stopped
+
+  # NEW: Nginx Reverse Proxy Service
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      # Expose port 80 on the host, which is the single entry point to our app.
+      - "80:80"
+    volumes:
+      # Mount our custom nginx.conf file into the container.
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # 'ro' for read-only
+    depends_on:
+      - client
       - server
     restart: unless-stopped
 
