@@ -21,6 +21,9 @@ RUN npm run build
 # Use a smaller, more secure Node.js image for the final production environment
 FROM node:18-alpine
 
+# Add repository metadata label
+LABEL org.opencontainers.image.source="https://github.com/symon9/future_fs_02"
+
 WORKDIR /app
 
 # Copy dependencies from the builder stage

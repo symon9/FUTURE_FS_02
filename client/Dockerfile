@@ -27,6 +27,9 @@ RUN npm run build
 # --- Stage 2: Production Stage ---
 FROM node:20-alpine
 
+# Add repository metadata label
+LABEL org.opencontainers.image.source="https://github.com/symon9/future_fs_02"
+
 WORKDIR /app
 
 # Copy production-ready files from the builder stage
