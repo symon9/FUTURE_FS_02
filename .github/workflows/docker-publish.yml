@@ -12,19 +12,22 @@ jobs:
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push client image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/mini-ecommerce-platform-client:latest ./client
-          docker push ghcr.io/${{ github.repository }}/mini-ecommerce-platform-client:latest
+          CLIENT_IMAGE=ghcr.io/${{ github.repository_owner }}/future_fs_02-mini-ecommerce-client:latest
+          docker build -t $CLIENT_IMAGE ./client
+          docker push $CLIENT_IMAGE
 
       - name: Build and push server image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/mini-ecommerce-platform-server:latest ./server
-          docker push ghcr.io/${{ github.repository }}/mini-ecommerce-platform-server:latest
+          SERVER_IMAGE=ghcr.io/${{ github.repository_owner }}/future_fs_02-mini-ecommerce-server:latest
+          docker build -t $SERVER_IMAGE ./server
+          docker push $SERVER_IMAGE
