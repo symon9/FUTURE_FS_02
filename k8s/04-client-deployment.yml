@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  namespace: zenvy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zenvy-client
+  template:
+    metadata:
+      labels:
+        app: zenvy-client
+    spec:
+      containers:
+        - name: zenvy-client
+          image: iamsymon/mini-ecommerce-platform-client:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: zenvy-client-config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: / # The homepage should be fast
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+  namespace: zenvy
+spec:
+  selector:
+    app: zenvy-client
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
