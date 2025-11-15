@@ -4,7 +4,8 @@
 ![Issues](https://img.shields.io/github/issues/symon9/FUTURE_FS_02)
 ![Stars](https://img.shields.io/github/stars/symon9/FUTURE_FS_02)
 ![Forks](https://img.shields.io/github/forks/symon9/FUTURE_FS_02)
-
+![Docker](https://img.shields.io/badge/docker-enabled-blue)
+![Kubernetes](https://img.shields.io/badge/kubernetes-ready-blueviolet)
 
 ### Your World of Smart Shopping
 
@@ -55,15 +56,17 @@ Zenvy is a complete, modern, and full-stack e-commerce application built from th
 
 ## 🛠️ Tech Stack
 
-| Category       | Technology                                                                |
-| :------------- | :------------------------------------------------------------------------ |
-| **Frontend**   | **Next.js** (App Router), **TypeScript**, **React**, **Tailwind CSS**     |
-| **State Mgt.** | **Zustand** (for global cart & auth state)                                |
-| **Animation**  | **GSAP (GreenSock Animation Platform)** with Flip & ScrollTrigger plugins |
-| **Backend**    | **Node.js**, **Express.js**, **TypeScript**                               |
-| **Database**   | **MongoDB** with **Mongoose** ODM                                         |
-| **Payments**   | **Paystack API**                                                          |
-| **Auth**       | **JSON Web Tokens (JWT)**, **bcrypt.js**                                  |
+| Category             | Technology                                                                |
+| :------------------- | :------------------------------------------------------------------------ |
+| **Frontend**         | **Next.js** (App Router), **TypeScript**, **React**, **Tailwind CSS**     |
+| **State Mgt.**       | **Zustand** (for global cart & auth state)                                |
+| **Animation**        | **GSAP (GreenSock Animation Platform)** with Flip & ScrollTrigger plugins |
+| **Backend**          | **Node.js**, **Express.js**, **TypeScript**                               |
+| **Database**         | **MongoDB** with **Mongoose** ODM                                         |
+| **Payments**         | **Paystack API**                                                          |
+| **Auth**             | **JSON Web Tokens (JWT)**, **bcrypt.js**                                  |
+| **Containerization** | **Docker**, **Docker Compose**                                            |
+| **Orchestration**    | **Kubernetes**                                                            |
 
 ---
 
@@ -77,6 +80,7 @@ This project is a monorepo containing two main packages:
 |   |-- /app/
 |   |-- /components/
 |   |-- /store/
+|   |-- Dockerfile
 |   `-- README.md
 |
 |-- /server/         # The Node.js + Express backend API
@@ -85,8 +89,12 @@ This project is a monorepo containing two main packages:
 |   |   |-- /models/
 |   |   |-- /routes/
 |   |   `-- /services/
+|   |-- Dockerfile
 |   `-- README.md
 |
+|-- /nginx/ # Nginx configuration for Docker reverse proxy
+|-- /k8s/ # Kubernetes manifests (deployments, services)
+|-- docker-compose.yml
 |-- .gitignore       # Global ignore file
 |-- LICENSE
 |-- CODE_OF_CONDUCT.md
@@ -99,6 +107,8 @@ This project is a monorepo containing two main packages:
 ## 🚀 Getting Started
 
 To run this project locally, you will need to set up both the backend server and the frontend client in two separate terminal windows.
+
+### 🔹 Option 1: Local Development
 
 ### Prerequisites
 
@@ -167,12 +177,68 @@ npm run dev
 
 ---
 
+### 🔹 Option 2: Docker Setup
+
+Ensure you have Docker and Docker Compose installed.
+
+#### 1. Create a .env file in your project root:
+
+```bash
+MONGODB_URI=mongodb://mongodb:27017/zenvy
+PAYSTACK_SECRET_KEY=sk_test_your_secret_key
+NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_your_public_key
+JWT_SECRET=a_very_strong_and_long_secret_for_jwt
+```
+
+#### 2. Build and run all services:
+
+```
+docker-compose up --build
+```
+
+This starts four containers:
+
+- mongodb – MongoDB database
+- server – Node.js backend
+- client – Next.js frontend
+- nginx – Reverse proxy exposing app on port 80
+
+#### 3. Access the app:
+
+- Frontend: http://localhost
+
+- Backend API: http://localhost:5000/api
+
+### 🔹 Option 3: Kubernetes Setup
+
+#### 1. Create a namespace (optional):
+
+```bash
+kubectl create namespace zenvy
+```
+
+#### 2. Apply Kubernetes manifests:
+
+```bash
+kubectl apply -f k8s/ -n zenvy
+```
+
+#### 3. Check pods and services:
+
+```bash
+kubectl get pods -n zenvy
+kubectl get svc -n zenvy
+```
+
+The frontend is exposed via a LoadBalancer or Ingress depending on your cluster setup. Update sensitive environment variables using Kubernetes Secrets.
+
 ## 🚢 Deployment
 
 This application is configured for easy deployment:
 
 - **Frontend (Client):** The Next.js application can be deployed with one click to **[Vercel](https://vercel.com/)**. Vercel will automatically detect the Next.js project within the `/client` directory.
 - **Backend (Server):** The Node.js server can be deployed to services like **[Render](https://render.com/)** or **[Railway](https://railway.app/)**. You will need to set the environment variables in their respective dashboards.
+- **Docker/Kubernetes:** Use the included docker-compose.yml or k8s/ manifests for containerized deployment
 
 ---
 
@@ -183,4 +249,3 @@ This application is configured for easy deployment:
 - GitHub: [@symon9](https://github.com/symon9)
 - LinkedIn: [Simon Emmanuel](https://www.linkedin.com/in/simon-emmanuel/)
 - Portfolio: [iamsimon.vercel.app](https://iamsimon.vercel.app)
-
